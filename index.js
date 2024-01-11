@@ -28,7 +28,7 @@ app.get("/generate", async (req, res) => {
     }
    );
 
-   return res.json(output);
+   return res.json({output:output});
   } catch (error) {
    console.log(`Error generating prompt:\n${error}`);
  res.status(500).json({ error: "Failed to generate prompt" });
