@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
+require('dotenv').config();
 const port = process.env.PORT || 8080;//you can choose any port 
-const dotenv = require('dotenv');
-dotenv.config();
 const Replicate = require("replicate");
 const api_Key = process.env['REPLICATE_AUT_KEY']
 const replicate = new Replicate({
