@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 8080;//you can choose any port 
+const port = process.env.PORT || 8080;//you can choose any port 
 const dotenv = require('dotenv');
 dotenv.config();
 const Replicate = require("replicate");
@@ -9,13 +9,11 @@ const replicate = new Replicate({
  auth: api_Key,
 });
 
-const Key = "key"; //your custom key
+app.get('/', (req,res)=> {
+  res.json({example: "/generate?imageUrl=https://te.legra.ph/file/24320e176659cfd8a7be1.jpg"})
+})
 
 app.get("/generate", async (req, res) => {
- const { apiKey } = req.query;
- if (!apiKey || apiKey !== Key) {
-  res.status(401).json({ error: "Invalid API key" });
- } else {
   try {
    const { imageUrl } = req.query;
    if (!imageUrl) {
@@ -35,8 +33,7 @@ app.get("/generate", async (req, res) => {
   } catch (error) {
    console.log(`Error generating prompt:\n${error}`);
  res.status(500).json({ error: "Failed to generate prompt" });
-  }
- }   
+  }   
    });   
 app.listen(port, () => {
  console.log(`Server is running on port ${port}`);
